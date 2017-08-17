@@ -1,6 +1,6 @@
 
 development: stop
-	@docker-compose up -d --remove-orphan
+	@docker-compose up -d --remove-orphan && docker-compose ps
 
 stop:
 	@docker-compose stop
@@ -10,3 +10,6 @@ ssh:
 
 logs:
 	@docker logs -f ffdrafttool_web_1
+
+build:
+	@docker-compose build web

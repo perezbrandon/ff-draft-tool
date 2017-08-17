@@ -9,7 +9,11 @@ services:
       dockerfile: Dockerfile
     ports:
       - ${PORT}:80
+    volumes:
+      - ./:/app
     environment:
       PHP_DISPLAY_ERRORS: 1
       ENV WEB_DOCUMENT_ROOT: /app/public/
-      ENV WEB_DOCUMENT_INDEX: index.php
+      ENV WEB_DOCUMENT_INDEX: /app/public/index.php
+      #APPLICATION_UID: 501
+      #APPLICATION_GID: 501
