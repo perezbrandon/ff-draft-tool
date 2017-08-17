@@ -1,0 +1,15 @@
+version: "3"
+
+services:
+
+  # Documentation https://dockerfile.readthedocs.io/en/latest/content/DockerImages/dockerfiles/php-nginx-dev.html
+  web:
+    image: webdevops/php-nginx:7.1
+    ports:
+      - ${PORT}:80
+    volumes:
+      - ./:/application/code
+    environment:
+      PHP_DISPLAY_ERRORS: 0
+      ENV WEB_DOCUMENT_ROOT: /application/code/public
+      ENV WEB_DOCUMENT_INDEX: index.php
