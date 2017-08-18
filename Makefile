@@ -1,7 +1,7 @@
 include .env
 
 development: stop
-	@docker-compose up -d --remove-orphan && docker-compose ps
+	@docker-compose up -d --remove-orphan && docker-compose ps && open http://localhost:$(PORT)
 
 stop:
 	@docker-compose stop
