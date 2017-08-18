@@ -21,15 +21,15 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: password
     volumes:
-      mysql-data:/var/lib/mysql
+      - mysql-data:/var/lib/mysql
     ports:
-      3306:3306
+      - 3308:3306
 
   redis:
     command: redis-server --requirepass password
     image: redis:3.2.5-alpine
     ports:
-      - 6379:6379
+      - 6377:6379
     volumes:
       - redis-data:/var/lib/redis/data
 

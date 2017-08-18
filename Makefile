@@ -1,3 +1,4 @@
+include .env
 
 development: stop
 	@docker-compose up -d --remove-orphan && docker-compose ps
@@ -13,3 +14,9 @@ logs:
 
 build:
 	@docker-compose build web
+
+mysql:
+	@mysql -h 127.0.0.1 -P 3308 -u root --password=$(DB_PASSWORD)
+
+create-dbs:
+	@mysql -h 127.0.0.1 -P 3308 -u root --password=$(DB_PASSWORD) -e "CREATE DATABASE IF NOT EXISTS ff_draft_tool_dev; CREATE DATABASE IF NOT EXISTS ff_draft_tool_test;"
