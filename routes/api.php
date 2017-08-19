@@ -20,6 +20,6 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 JsonApi::register('default', ['namespace' => 'Api'], function ($api, $router) {
     $api->resource('ppr_draft_rankings', [
-        'only' => ['index', 'read']
+        'only' => ['index']
     ]);
 });
