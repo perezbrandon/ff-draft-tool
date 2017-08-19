@@ -6,9 +6,14 @@ use Tests\TestCase;
 use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
+use App\PprDraftRanking;
+use Tests\JsonApiSpecHelper;
 
 class PprDraftRankingsTest extends TestCase
 {
+    use DatabaseTransactions;
+    use JsonApiSpecHelper;
+
     /**
      * A basic test example.
      *
@@ -16,23 +21,32 @@ class PprDraftRankingsTest extends TestCase
      */
     public function testListDraftRankingsSuccessful()
     {
-        $headers = array(
-            'CONTENT_TYPE' => 'application/vnd.api+json',
-            'ACCEPT' => 'application/vnd.api+json'
-        );
-        echo getenv('APP_ENV');
-        $response = $this->get('api/ppr-draft-rankings', $headers);
+        factory(PprDraftRanking::class, 1)->create();
 
-        echo "---------";
-        print_r($response->getContent());
-        echo "===========";
+        $response = $this->getApi('api/ppr-draft-rankings');
+
+        $expectedResult = [
+            'data' => [
+                [
+                    'type',
+                    'id',
+                    'attributes' => [
+                        'position',
+                        'displayName',
+                        'fname',
+                        'lname',
+                        'team',
+                        'byeWeek',
+                        'nerdRank',
+                        'positionRank',
+                        'overallRank',
+                        'playerId'
+                    ]
+                ],
+            ]
+        ];
 
         $response->assertStatus(200)
-        ->assertJson([
-            'data' => [
-                'type' => 'ppr_draft_rankings',
-                'id' => '1'
-            ],
-        ]);
+            ->assertJsonStructure($expectedResult);
     }
 }

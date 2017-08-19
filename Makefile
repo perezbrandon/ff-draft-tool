@@ -30,3 +30,7 @@ test:
 migrate:
 	@docker-compose run --rm -e DB_DATABASE=ff_draft_tool_dev php_cli php\ artisan\ migrate && \
 	docker-compose run --rm -e DB_DATABASE=ff_draft_tool_test php_cli php\ artisan\ migrate
+
+rollback-migrate:
+	@docker-compose run --rm -e DB_DATABASE=ff_draft_tool_dev php_cli php\ artisan\ migrate:refresh&& \
+	docker-compose run --rm -e DB_DATABASE=ff_draft_tool_test php_cli php\ artisan\ migrate:refresh

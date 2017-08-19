@@ -16,6 +16,16 @@ class CreatePprDraftRankingsTable extends Migration
         Schema::create('ppr_draft_rankings', function (Blueprint $table) {
             $table->increments('id');
             $table->timestamps();
+            $table->string('position');
+            $table->string('display_name');
+            $table->string('fname');
+            $table->string('lname');
+            $table->string('team');
+            $table->integer('bye_week');
+            $table->float('nerd_rank');
+            $table->integer('position_rank');
+            $table->integer('overall_rank');
+            $table->integer('player_id');
         });
     }
 
