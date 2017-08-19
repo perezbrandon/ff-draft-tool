@@ -21,7 +21,7 @@ return [
     |   - e.g. \App\JsonApi\Hydrators\{User, Post, Comment}
     |
     */
-    'namespace' => 'v1',
+    'namespace' => null,
     'by-resource' => true,
 
     /*
@@ -38,7 +38,7 @@ return [
     | `'posts' => App\Post::class`
     */
     'resources' => [
-        'posts' => 'App\Post',
+        'ppr_draft_rankings' => App\PprDraftRanking::class,
     ],
 
     /*
@@ -73,8 +73,8 @@ return [
     */
     'url' => [
         'host' => null,
-        'namespace' => '/api/v1',
-        'name' => 'api:v1:',
+        'namespace' => null,
+        'name' => 'api:',
     ],
 
     /*

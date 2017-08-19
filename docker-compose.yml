@@ -33,6 +33,18 @@ services:
     volumes:
       - redis-data:/var/lib/redis/data
 
+  test:
+    image: webdevops/php:7.1
+    environment:
+      PHP_DISPLAY_ERRORS: 1
+    entrypoint: sh -c  # override default entrypoint
+    ports: []
+    volumes:
+      - ./:/app
+    depends_on:
+      - mysql
+      - redis
+
 volumes:
   mysql-data:
   redis-data:

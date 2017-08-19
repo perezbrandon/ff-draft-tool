@@ -1,7 +1,10 @@
 include .env
 
 development: stop
-	@docker-compose up -d --remove-orphan && docker-compose ps && open http://localhost:$(PORT)
+	@docker-compose up -d --remove-orphan && open http://localhost:$(PORT)
+
+status:
+	@docker-compose ps
 
 stop:
 	@docker-compose stop
@@ -20,3 +23,6 @@ mysql:
 
 create-dbs:
 	@mysql -h 127.0.0.1 -P 3308 -u root --password=$(DB_PASSWORD) -e "CREATE DATABASE IF NOT EXISTS ff_draft_tool_dev; CREATE DATABASE IF NOT EXISTS ff_draft_tool_test;"
+
+test:
+	@docker-compose run test 'cd /app && ./vendor/bin/phpunit-watcher watch'
