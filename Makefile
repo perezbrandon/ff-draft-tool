@@ -25,4 +25,8 @@ create-dbs:
 	@mysql -h 127.0.0.1 -P 3308 -u root --password=$(DB_PASSWORD) -e "CREATE DATABASE IF NOT EXISTS ff_draft_tool_dev; CREATE DATABASE IF NOT EXISTS ff_draft_tool_test;"
 
 test:
-	@docker-compose run test 'cd /app && ./vendor/bin/phpunit-watcher watch'
+	@docker-compose run --rm php_cli vendor/bin/phpunit-watcher\ watch
+
+migrate:
+	@docker-compose run --rm -e DB_DATABASE=ff_draft_tool_dev php_cli php\ artisan\ migrate && \
+	docker-compose run --rm -e DB_DATABASE=ff_draft_tool_test php_cli php\ artisan\ migrate
