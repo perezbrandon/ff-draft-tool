@@ -8,8 +8,8 @@ class Hydrator extends EloquentHydrator
 {
 
     /**
-     * @var array|null
-     */
+    * @var array|null
+    */
     protected $attributes = [
         'position',
         'display_name',
@@ -24,10 +24,7 @@ class Hydrator extends EloquentHydrator
     ];
 
     /**
-     * @var array
-     */
-    protected $relationships = [
-        //
-    ];
-
+    * @var array
+    */
+    protected $relationships = [];
 }

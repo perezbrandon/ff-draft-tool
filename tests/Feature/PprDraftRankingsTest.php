@@ -46,7 +46,8 @@ class PprDraftRankingsTest extends TestCase
             ]
         ];
 
-        $response->assertStatus(200)
+        $response
+            ->assertStatus(200)
             ->assertJsonStructure($expectedResult);
     }
 }
