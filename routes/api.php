@@ -20,6 +20,21 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 JsonApi::register('default', ['namespace' => 'Api'], function ($api, $router) {
     $api->resource('ppr_draft_rankings', [
-        'only' => ['index']
-    ]);
+      'only' => ['index']
+  ]);
+    $api->resource('teams', [
+      'only' => ['index']
+  ]);
+    $api->resource('games', [
+      'only' => ['index']
+  ]);
+    $api->resource('bye_weeks', [
+    'only' => ['index']
+  ]);
+    $api->resource('players', [
+  'only' => ['index']
+  ]);
+    $api->resource('draft_projections', [
+  'only' => ['index']
+  ]);
 });

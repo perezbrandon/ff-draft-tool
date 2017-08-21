@@ -39,6 +39,11 @@ return [
     */
     'resources' => [
         'ppr_draft_rankings' => App\PprDraftRanking::class,
+        'teams' => App\Team::class,
+        'games' => App\Game::class,
+        'bye_weeks' => App\ByeWeek::class,
+        'players' => App\Player::class,
+        'draft_projections' => App\DraftProjection::class,
     ],
 
     /*
