@@ -40,4 +40,19 @@ class Validators extends AbstractValidatorProvider
         //
     }
 
+    /**
+     * @var array
+     */
+    protected $allowedSortParameters = [
+        'position',
+        'displayName',
+        'fname',
+        'lname',
+        'team',
+        'byeWeek',
+        'nerdRank',
+        'positionRank',
+        'overallRank',
+        'playerId',
+    ];
 }

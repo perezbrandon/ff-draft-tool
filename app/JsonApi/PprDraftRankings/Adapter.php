@@ -22,6 +22,19 @@ class Adapter extends EloquentAdapter
         parent::__construct(new PprDraftRanking(), $paging);
     }
 
+    protected $sortColumns = [
+        'position',
+        'displayName',
+        'fname',
+        'lname',
+        'team',
+        'byeWeek',
+        'nerdRank',
+        'positionRank',
+        'overallRank',
+        'playerId',
+     ];
+
     /**
      * @param Builder $query
      * @param Collection $filters
@@ -33,7 +46,7 @@ class Adapter extends EloquentAdapter
         Log::info($filters);
 
         $first = true;
-
+        return;
         foreach ($filters as $column => $value) {
             if ($first) {
                 $query->where($column, 'like', "%$value%");
