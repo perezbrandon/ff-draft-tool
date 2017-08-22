@@ -42,11 +42,7 @@ class Adapter extends EloquentAdapter
      */
     protected function filter(Builder $query, Collection $filters)
     {
-        //Log::info($query);
-        Log::info($filters);
-
         $first = true;
-        return;
         foreach ($filters as $column => $value) {
             if ($first) {
                 $query->where($column, 'like', "%$value%");

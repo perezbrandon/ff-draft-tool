@@ -6,6 +6,7 @@ use Illuminate\Console\Command;
 use MarkMyers\FFNerd\FFNerd;
 use App\PprDraftRanking;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Support\Facades\Log;
 
 class ImportFantasyFootballNerdApi extends Command
 {
@@ -55,7 +56,6 @@ class ImportFantasyFootballNerdApi extends Command
                 $rank = new PprDraftRanking();
                 $importNewCount++;
             }
-
             $rank->position = $item['position'];
             $rank->display_name = $item['displayName'];
             $rank->fname = $item['fname'];
