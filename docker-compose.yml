@@ -35,12 +35,24 @@ services:
 
   php_cli:
     build:
-      context: .
-      dockerfile: Dockerfile
+      context: ./_docker
+      dockerfile: cli.Dockerfile
     environment:
       PHP_DISPLAY_ERRORS: 1
     entrypoint: /bin/sh -c
-    ports: []
+    volumes:
+      - ./:/app
+    depends_on:
+      - mysql
+      - redis
+
+  cron:
+    build:
+      context: ./_docker
+      dockerfile: cron.Dockerfile
+    environment:
+      PHP_DISPLAY_ERRORS: 1
+    entrypoint: /usr/sbin/cron -f
     volumes:
       - ./:/app
     depends_on:

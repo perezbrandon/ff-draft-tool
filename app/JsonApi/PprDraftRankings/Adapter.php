@@ -7,6 +7,7 @@ use CloudCreativity\LaravelJsonApi\Store\EloquentAdapter;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Collection;
 use App\PprDraftRanking;
+use Illuminate\Support\Facades\Log;
 
 class Adapter extends EloquentAdapter
 {
@@ -28,7 +29,18 @@ class Adapter extends EloquentAdapter
      */
     protected function filter(Builder $query, Collection $filters)
     {
-        // TODO
+        //Log::info($query);
+        Log::info($filters);
+
+        $first = true;
+
+        foreach ($filters as $column => $value) {
+            if ($first) {
+                $query->where($column, 'like', "%$value%");
+            } else {
+                $query->orWhere($column, 'like', "%$value%");
+            }
+        }
     }
 
     /**
@@ -39,5 +51,4 @@ class Adapter extends EloquentAdapter
     {
         // TODO
     }
-
 }

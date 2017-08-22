@@ -1,5 +1,8 @@
 include .env
 
+repl:
+	@docker-compose run --rm php_cli php\ artisan\ tinker
+
 development: stop
 	@docker-compose up -d --remove-orphan && open http://localhost:$(PORT)
 
