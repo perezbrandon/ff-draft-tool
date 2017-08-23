@@ -17,16 +17,16 @@ class CreatePlayersTable extends Migration
             $table->increments('id');
             $table->timestamps();
             $table->integer('player_id');
-            $table->integer('active');
-            $table->integer('jersey');
+            $table->boolean('active');
+            $table->integer('jersey')->nullable();
             $table->string('fname');
             $table->string('lname');
             $table->string('display_name');
             $table->string('team');
             $table->string('position');
-            $table->string('height');
-            $table->integer('weight');
-            $table->date('dob');
+            $table->string('height')->nullable();
+            $table->string('weight')->nullable();
+            $table->date('dob')->nullable();
         });
     }
 

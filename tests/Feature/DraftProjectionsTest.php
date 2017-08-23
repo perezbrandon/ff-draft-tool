@@ -13,15 +13,10 @@ class DraftProjectionsTest extends TestCase
 {
     use DatabaseTransactions;
     use JsonApiSpecHelper;
-    /**
-     * A basic test example.
-     *
-     * @return void
-     */
 
     public function testListDraftProjectionsSucessful()
     {
-        factory(DraftProjection::class, 1)->create();
+        factory(DraftProjection::class, 2)->create();
 
         $response = $this->getApi('/api/draft-projections');
 
@@ -48,7 +43,9 @@ class DraftProjectionsTest extends TestCase
         ];
 
         $response->assertStatus(200)
-                 ->assertJsonStructure($expectedResult);
+            ->assertJsonStructure($expectedResult);
+        $data = $this->getData($response);
+        $this->assertEquals(count($data), 2);
     }
 
 
@@ -63,5 +60,7 @@ class DraftProjectionsTest extends TestCase
                  ->assertJsonFragment([
                      'team' => 'ARI',
                  ]);
+        $data = $this->getData($response);
+        $this->assertEquals(count($data), 3);
     }
 }

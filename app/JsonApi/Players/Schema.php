@@ -12,11 +12,17 @@ class Schema extends EloquentSchema
      */
     protected $resourceType = 'players';
 
+    protected $createdAt = false;
+
+    protected $updatedAt = false;
+
     /**
      * @var array|null
      */
 
     protected $attributes = [
+        // 'updated_at' => 'updatedAt',
+        // 'created_at' => 'createdAt',
         'player_id' => 'playerId',
         'active',
         'jersey',

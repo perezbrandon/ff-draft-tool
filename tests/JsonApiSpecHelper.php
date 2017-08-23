@@ -12,4 +12,9 @@ trait JsonApiSpecHelper
     {
         return $this->get($uri, JSON_API_HEADERS);
     }
+
+    public function getData($response)
+    {
+        return json_decode($response->getContent(), true)['data'];
+    }
 }

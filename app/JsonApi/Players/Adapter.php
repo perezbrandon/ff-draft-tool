@@ -33,11 +33,16 @@ class Adapter extends EloquentAdapter
         $results = "";
         foreach ($filters as $col => $value) {
             if ($first) {
-                $query->where($col, 'like', "$value%")->get();
+                $query->where($col, 'like', "$value%")->where('active', '=', true)->get();
             } else {
-                $query->orWhere($col, 'like', "$value%")->get();
+                $query->orWhere($col, 'like', "$value%")->where('active', '=', true)->get();
             }
         }
+        if ($filters->isEmpty()) {
+            $query->where('active', '=', true);
+        }
+        //if($filters)
+        //$query->where('active', '=', true);
     }
 
     /**

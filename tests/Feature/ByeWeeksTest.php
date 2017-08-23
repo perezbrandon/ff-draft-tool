@@ -7,21 +7,16 @@ use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Tests\JsonApiSpecHelper;
-use Illuminate\Http\Response;
 use App\ByeWeek;
 
 class ByeWeeksTest extends TestCase
 {
     use DatabaseTransactions;
     use JsonApiSpecHelper;
-    /**
-     * A basic test example.
-     *
-     * @return void
-     */
+
     public function testListByeWeeksSuccessful()
     {
-        factory(ByeWeek::class, 1)->create();
+        factory(ByeWeek::class, 2)->create();
 
         $response = $this->getApi('/api/bye-weeks');
 
@@ -40,7 +35,9 @@ class ByeWeeksTest extends TestCase
         ];
 
         $response->assertStatus(200)
-                 ->assertJsonStructure($expectedResult);
+            ->assertJsonStructure($expectedResult);
+        $data = $this->getData($response);
+        $this->assertEquals(count($data), 2);
     }
 
 
@@ -49,7 +46,7 @@ class ByeWeeksTest extends TestCase
 
     public function testMultiFilterByeWeeksSuccessful()
     {
-        factory(ByeWeek::class, 4)->create([
+        factory(ByeWeek::class, 3)->create([
             'bye_week' => 6,
             'team_code' => 'ARI'
         ]);
@@ -61,5 +58,7 @@ class ByeWeeksTest extends TestCase
                 'byeWeek' => 6,
                 'teamCode' => 'ARI'
                 ]);
+        $data = $this->getData($response);
+        $this->assertEquals(count($data), 3);
     }
 }
