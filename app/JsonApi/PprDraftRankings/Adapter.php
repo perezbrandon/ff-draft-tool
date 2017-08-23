@@ -45,9 +45,9 @@ class Adapter extends EloquentAdapter
         $first = true;
         foreach ($filters as $column => $value) {
             if ($first) {
-                $query->where($column, 'like', "%$value%");
+                $query->where($column, 'like', "$value%");
             } else {
-                $query->orWhere($column, 'like', "%$value%");
+                $query->orWhere($column, 'like', "$value%");
             }
         }
     }
