@@ -6,18 +6,17 @@ use Tests\TestCase;
 use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
+use Tests\JsonApiSpecHelper;
 use App\ByeWeek;
 
 class ByeWeeksTest extends TestCase
 {
-    /**
-     * A basic test example.
-     *
-     * @return void
-     */
+    use DatabaseTransactions;
+    use JsonApiSpecHelper;
+
     public function testListByeWeeksSuccessful()
     {
-        factory(ByeWeek::class, 1)->create();
+        factory(ByeWeek::class, 2)->create();
 
         $response = $this->get('/api/bye-weeks');
 
@@ -36,6 +35,8 @@ class ByeWeeksTest extends TestCase
         ];
 
         $response->assertStatus(200)
-                 ->assertJsonStructure($expectedResult);
+            ->assertJsonStructure($expectedResult);
+        $data = $this->getData($response);
+        $this->assertEquals(count($data), 2);
     }
 }

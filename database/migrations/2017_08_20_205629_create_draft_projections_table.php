@@ -38,6 +38,6 @@ class CreateDraftProjectionsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExist('draft_projections');
+        Schema::dropIfExists('draft_projections');
     }
 }

@@ -14,14 +14,9 @@ class PprDraftRankingsTest extends TestCase
     use DatabaseTransactions;
     use JsonApiSpecHelper;
 
-    /**
-     * A basic test example.
-     *
-     * @return void
-     */
     public function testListDraftRankingsSuccessful()
     {
-        factory(PprDraftRanking::class, 1)->create();
+        factory(PprDraftRanking::class, 2)->create();
 
         $response = $this->getApi('api/ppr-draft-rankings');
 
@@ -46,8 +41,9 @@ class PprDraftRankingsTest extends TestCase
             ]
         ];
 
-        $response
-            ->assertStatus(200)
+        $response->assertStatus(200)
             ->assertJsonStructure($expectedResult);
+        $data = $this->getData($response);
+        $this->assertEquals(count($data), 2);
     }
 }

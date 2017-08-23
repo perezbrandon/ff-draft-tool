@@ -4,9 +4,11 @@ namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
 use MarkMyers\FFNerd\FFNerd;
-use App\PprDraftRanking;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Facades\Log;
+use Carbon\Carbon;
+use App\PprDraftRanking;
+use App\Player;
 
 class ImportFantasyFootballNerdApi extends Command
 {
@@ -33,6 +35,8 @@ class ImportFantasyFootballNerdApi extends Command
     {
         parent::__construct();
     }
+
+
 
     /**
      * Execute the console command.
@@ -68,9 +72,46 @@ class ImportFantasyFootballNerdApi extends Command
             $rank->player_id = $item['playerId'];
             $rank->save();
         });
+        unset($rankings);
 
+        $this->info("Finished import process for PprDraftRanking");
         $this->info("Newly imported: $importNewCount");
         $this->info("Updated: $importUpdatedCount");
-        $this->info("Finished import process");
+
+        $importNewCount = 0;
+        $importUpdatedCount = 0;
+
+        $players = $api->players();
+        $players->each(function ($item, $key) use (&$importUpdatedCount, &$importNewCount) {
+            $rank = null;
+            try {
+                $player = Player::where('player_id', '=', $item['playerId'])->firstOrFail();
+                $importUpdatedCount++;
+            } catch (ModelNotFoundException $e) {
+                $player = new Player();
+                $importNewCount++;
+            }
+
+            try {
+                $player->dob = Carbon::createFromFormat('Y-m-d', $item['dob'])->toDateString();
+            } catch (\InvalidArgumentException $e) {
+            }
+            $player->weight = $item['weight'];
+            $player->height = $item['height'];
+            $player->position = $item['position'];
+            $player->team = $item['team'];
+            $player->display_name = $item['displayName'];
+            $player->lname = $item['lname'];
+            $player->fname = $item['fname'];
+            $player->jersey = $item['jersey'];
+            $player->active = $item['active'];
+            $player->player_id = $item['playerId'];
+            $player->save();
+        });
+        unset($players);
+
+        $this->info("Finished import process for Player");
+        $this->info("Newly imported: $importNewCount");
+        $this->info("Updated: $importUpdatedCount");
     }
 }

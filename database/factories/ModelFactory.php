@@ -72,7 +72,7 @@ $factory->define(App\ByeWeek::class, function (Faker\Generator $faker) {
 $factory->define(App\Player::class, function (Faker\Generator $faker) {
     return [
         'player_id' => $faker->randomDigit(10),
-        'active' => $faker->randomDigit(10),
+        'active' => true,
         'jersey' => $faker->randomDigit(10),
         'fname' => $faker->name,
         'lname' => $faker->name,
@@ -80,7 +80,7 @@ $factory->define(App\Player::class, function (Faker\Generator $faker) {
         'team' => $faker->name,
         'position' => $faker->name,
         'height' => $faker->name,
-        'weight' => $faker->randomDigit(10),
+        'weight' => $faker->name,
         'dob' => $faker->date($format = 'Y-m-d', $max = 'now')
     ];
 });

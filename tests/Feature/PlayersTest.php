@@ -13,14 +13,11 @@ class PlayersTest extends TestCase
 {
     use DatabaseTransactions;
     use JsonApiSpecHelper;
-    /**
-     * A basic test example.
-     *
-     * @return void
-     */
+
     public function testListPlayersSuccessful()
     {
-        factory(Player::class, 1)->create();
+        factory(Player::class, 2)->create();
+
         $response = $this->get('/api/players');
 
         $expectedResult = [
@@ -46,6 +43,33 @@ class PlayersTest extends TestCase
         ];
 
         $response->assertStatus(200)
-                 ->assertJsonStructure($expectedResult);
+            ->assertJsonStructure($expectedResult);
+        $data = $this->getData($response);
+        $this->assertEquals(count($data), 2);
+    }
+
+    public function testListDefaultFilterActiveOnly()
+    {
+        factory(Player::class, 3)->create([
+            'active' => true
+        ]);
+        factory(Player::class, 2)->create([
+            'active' => false
+        ]);
+
+        $response = $this->get('/api/players');
+
+        $data = $this->getData($response);
+        $this->assertEquals(count($data), 3);
+    }
+
+    public function testNoTimeStampFields()
+    {
+        factory(Player::class, 1)->create();
+        $response = $this->get('/api/players');
+        $attributes = $this->getData($response);
+        $attributes = $attributes[0]['attributes'];
+        $this->assertEquals(isset($attributes['updatedAt']), false);
+        $this->assertEquals(isset($attributes['createdAt']), false);
     }
 }

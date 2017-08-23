@@ -14,14 +14,9 @@ class TeamsTest extends TestCase
     use DatabaseTransactions;
     use JsonApiSpecHelper;
 
-    /**
-     * A basic test example.
-     *
-     * @return void
-     */
     public function testListTeamsSuccessful()
     {
-        factory(Team::class, 1)->create();
+        factory(Team::class, 2)->create();
 
         $response = $this->getApi('/api/teams');
 
@@ -39,6 +34,8 @@ class TeamsTest extends TestCase
         ];
 
         $response->assertStatus(200)
-                 ->assertJsonStructure($expectedResult);
+            ->assertJsonStructure($expectedResult);
+        $data = $this->getData($response);
+        $this->assertEquals(count($data), 2);
     }
 }

@@ -28,7 +28,7 @@ class Adapter extends EloquentAdapter
      */
     protected function filter(Builder $query, Collection $filters)
     {
-        // TODO
+        $query->where('active', '=', true);
     }
 
     /**
@@ -39,5 +39,4 @@ class Adapter extends EloquentAdapter
     {
         // TODO
     }
-
 }

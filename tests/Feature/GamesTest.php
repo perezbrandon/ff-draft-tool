@@ -13,14 +13,10 @@ class GamesTest extends TestCase
 {
     use DatabaseTransactions;
     use JsonApiSpecHelper;
-    /**
-     * A basic test example.
-     *
-     * @return void
-     */
+
     public function testListTeamsSuccessful()
     {
-        factory(Game::class, 1)->create();
+        factory(Game::class, 2)->create();
 
         $response = $this->getApi('/api/games');
 
@@ -41,6 +37,8 @@ class GamesTest extends TestCase
         ];
 
         $response->assertStatus(200)
-                 ->assertJsonStructure($expectedResult);
+            ->assertJsonStructure($expectedResult);
+        $data = $this->getData($response);
+        $this->assertEquals(count($data), 2);
     }
 }
