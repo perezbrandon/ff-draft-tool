@@ -43,4 +43,22 @@ class GamesTest extends TestCase
         $response->assertStatus(200)
                  ->assertJsonStructure($expectedResult);
     }
+
+
+    public function testMultiFilterGamesSuccessful()
+    {
+        factory(Game::class, 4)->create([
+            'game_week' => 3,
+            'home_team' => 'ARI'
+        ]);
+        $response = $this->getApi('/api/games?filter[game_week]=3&filter[home_team]=ARI');
+
+
+
+        $response->assertStatus(200)
+                 ->assertJsonFragment([
+                     'gameWeek' => 3,
+                     'homeTeam' => 'ARI'
+                 ]);
+    }
 }

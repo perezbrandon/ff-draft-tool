@@ -50,4 +50,21 @@ class PprDraftRankingsTest extends TestCase
             ->assertStatus(200)
             ->assertJsonStructure($expectedResult);
     }
+
+    public function testMultiFilterDraftRankingSuccessfull()
+    {
+        factory(PprDraftRanking::class, 4)->create([
+            "bye_week" => 6,
+            "position" => 'WR'
+        ]);
+        $response = $this->getApi('api/ppr-draft-rankings?filter[position]=WR&filter[bye_week]=6');
+
+
+
+        $response->assertStatus(200)
+                 ->assertJsonFragment([
+                     "byeWeek" => 6,
+                     "position" => "WR"
+                 ]);
+    }
 }

@@ -26,9 +26,18 @@ class Adapter extends EloquentAdapter
      * @param Collection $filters
      * @return void
      */
+    //TODO: dry out this filter functionality
     protected function filter(Builder $query, Collection $filters)
     {
-        // TODO
+        $first = true;
+        $results = "";
+        foreach ($filters as $col => $value) {
+            if ($first) {
+                $query->where($col, 'like', "$value%")->get();
+            } else {
+                $query->orWhere($col, 'like', "$value%")->get();
+            }
+        }
     }
 
     /**
@@ -39,5 +48,4 @@ class Adapter extends EloquentAdapter
     {
         // TODO
     }
-
 }

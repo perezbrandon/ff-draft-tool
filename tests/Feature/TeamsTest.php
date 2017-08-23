@@ -41,4 +41,20 @@ class TeamsTest extends TestCase
         $response->assertStatus(200)
                  ->assertJsonStructure($expectedResult);
     }
+
+
+    public function testMultiFilterTeamsSuccessfull()
+    {
+        factory(Team::class, 4)->create([
+            'code' => 'ARI',
+            'full_name' => 'Arizona Cardinals'
+        ]);
+        $response = $this->getApi('/api/teams?filter[code]=ARI&filter[full_name]=Arizona%20Cardinals');
+
+        $response->assertStatus(200)
+                 ->assertJsonFragment([
+                     'code' => 'ARI',
+                     'fullName' => 'Arizona Cardinals'
+                 ]);
+    }
 }

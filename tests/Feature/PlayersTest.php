@@ -21,7 +21,7 @@ class PlayersTest extends TestCase
     public function testListPlayersSuccessful()
     {
         factory(Player::class, 1)->create();
-        $response = $this->get('/api/players');
+        $response = $this->getApi('/api/players');
 
         $expectedResult = [
             'data' => [
@@ -47,5 +47,20 @@ class PlayersTest extends TestCase
 
         $response->assertStatus(200)
                  ->assertJsonStructure($expectedResult);
+    }
+
+    public function testMultiFilterPlayersSuccessful()
+    {
+        factory(Player::class, 4)->create([
+            'team' => 'ARI',
+            'position' => 'RB',
+        ]);
+        $response = $this->getApi('/api/players?filter[team]=ARI&filter[position]=RB');
+
+        $response->assertStatus(200)
+                 ->assertJsonFragment([
+                     'team' => 'ARI',
+                     'position' => 'RB'
+                 ]);
     }
 }
