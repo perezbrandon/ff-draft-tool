@@ -1,12 +1,12 @@
 <?php
 
-namespace App\JsonApi\DraftProjections;
+namespace App\JsonApi\UserDraftSelections;
 
 use CloudCreativity\LaravelJsonApi\Pagination\StandardStrategy;
 use CloudCreativity\LaravelJsonApi\Store\EloquentAdapter;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Collection;
-use App\DraftProjection;
+use App\UserDraftSelection;
 
 class Adapter extends EloquentAdapter
 {
@@ -18,22 +18,8 @@ class Adapter extends EloquentAdapter
      */
     public function __construct(StandardStrategy $paging)
     {
-        parent::__construct(new DraftProjection(), $paging);
+        parent::__construct(new UserDraftSelection(), $paging);
     }
-
-    protected $sortColumns = [
-            'playerId',
-            'completions',
-            'attempts',
-            'passingYards',
-            'passingTd',
-            'passingInt',
-            'rushYards',
-            'rushTd',
-            'fantasyPoints',
-            'displayName',
-            'team',
-        ];
 
     /**
      * @param Builder $query
@@ -42,14 +28,7 @@ class Adapter extends EloquentAdapter
      */
     protected function filter(Builder $query, Collection $filters)
     {
-        $first = true;
-        foreach ($filters as $col => $value) {
-            if ($first) {
-                $query->where($col, 'like', "$value%")->get();
-            } else {
-                $query->orWhere($col, 'like', "$value%")->get();
-            }
-        }
+        // TODO
     }
 
     /**
@@ -60,4 +39,5 @@ class Adapter extends EloquentAdapter
     {
         // TODO
     }
+
 }

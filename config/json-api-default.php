@@ -44,6 +44,8 @@ return [
         'bye_weeks' => App\ByeWeek::class,
         'players' => App\Player::class,
         'draft_projections' => App\DraftProjection::class,
+        'user_leagues' => App\UserLeague::class,
+        'roster_slots' => App\RosterSlot::class,
     ],
 
     /*

@@ -14,27 +14,33 @@ use Illuminate\Http\Request;
 */
 /*
 Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
+return $request->user();
 });
 */
 
 JsonApi::register('default', ['namespace' => 'Api'], function ($api, $router) {
     $api->resource('ppr_draft_rankings', [
-      'only' => ['index']
-  ]);
+        'only' => ['index']
+    ]);
     $api->resource('teams', [
-      'only' => ['index']
-  ]);
+        'only' => ['index']
+    ]);
     $api->resource('games', [
-      'only' => ['index']
-  ]);
+        'only' => ['index']
+    ]);
     $api->resource('bye_weeks', [
-    'only' => ['index']
-  ]);
+        'only' => ['index']
+    ]);
     $api->resource('players', [
-  'only' => ['index']
-  ]);
+        'only' => ['index']
+    ]);
     $api->resource('draft_projections', [
-  'only' => ['index']
-  ]);
+        'only' => ['index']
+    ]);
+    $api->resource('user_leagues', [
+        'only' => ['index']
+    ]);
+    $api->resource('roster_slots', [
+        'only' => ['index']
+    ]);
 });

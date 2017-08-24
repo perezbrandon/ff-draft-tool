@@ -35,7 +35,6 @@ class Adapter extends EloquentAdapter
     protected function filter(Builder $query, Collection $filters)
     {
         $first = true;
-        $results = "";
         foreach ($filters as $col => $value) {
             if ($first) {
                 $query->where($col, 'like', "$value%")->get();

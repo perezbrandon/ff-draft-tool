@@ -40,3 +40,6 @@ rollback-migrate:
 
 import-api:
 	@docker-compose run --rm php_cli php\ artisan\ import:ffnapi
+
+seed:
+	@docker-compose run --rm php_cli php\ artisan\ db:seed

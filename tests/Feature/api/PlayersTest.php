@@ -18,7 +18,7 @@ class PlayersTest extends TestCase
     {
         factory(Player::class, 2)->create();
 
-        $response = $this->get('/api/players');
+        $response = $this->getApi('/api/players');
 
         $expectedResult = [
             'data' => [

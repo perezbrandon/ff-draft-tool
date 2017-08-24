@@ -1,12 +1,12 @@
 <?php
 
-namespace App\JsonApi\DraftProjections;
+namespace App\JsonApi\UserLeagues;
 
 use CloudCreativity\LaravelJsonApi\Pagination\StandardStrategy;
 use CloudCreativity\LaravelJsonApi\Store\EloquentAdapter;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Collection;
-use App\DraftProjection;
+use App\UserLeague;
 
 class Adapter extends EloquentAdapter
 {
@@ -18,22 +18,8 @@ class Adapter extends EloquentAdapter
      */
     public function __construct(StandardStrategy $paging)
     {
-        parent::__construct(new DraftProjection(), $paging);
+        parent::__construct(new UserLeague(), $paging);
     }
-
-    protected $sortColumns = [
-            'playerId',
-            'completions',
-            'attempts',
-            'passingYards',
-            'passingTd',
-            'passingInt',
-            'rushYards',
-            'rushTd',
-            'fantasyPoints',
-            'displayName',
-            'team',
-        ];
 
     /**
      * @param Builder $query
@@ -45,9 +31,9 @@ class Adapter extends EloquentAdapter
         $first = true;
         foreach ($filters as $col => $value) {
             if ($first) {
-                $query->where($col, 'like', "$value%")->get();
+                $query->where($col, '=', $value)->get();
             } else {
-                $query->orWhere($col, 'like', "$value%")->get();
+                $query->orWhere($col, '=', $value)->get();
             }
         }
     }

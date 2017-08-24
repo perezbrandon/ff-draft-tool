@@ -45,7 +45,6 @@ class Adapter extends EloquentAdapter
     protected function filter(Builder $query, Collection $filters)
     {
         $first = true;
-        $results = "";
         foreach ($filters as $col => $value) {
             if ($first) {
                 $query->where($col, 'like', "$value%")->where('active', '=', true)->get();
@@ -56,8 +55,6 @@ class Adapter extends EloquentAdapter
         if ($filters->isEmpty()) {
             $query->where('active', '=', true);
         }
-        //if($filters)
-        //$query->where('active', '=', true);
     }
 
     /**

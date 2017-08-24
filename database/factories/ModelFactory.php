@@ -100,3 +100,18 @@ $factory->define(App\DraftProjection::class, function (Faker\Generator $faker) {
         'team' => $faker->name
     ];
 });
+
+
+$factory->define(App\RosterSlot::class, function (Faker\Generator $faker) {
+    return [
+        'user_league_id' => $faker->randomDigit(10),
+        'position' => $faker->name
+    ];
+});
+
+$factory->define(App\UserLeague::class, function (Faker\Generator $faker) {
+    return [
+        'name' => $faker->name,
+        'user_id' => $faker->randomDigit(10)
+    ];
+});
