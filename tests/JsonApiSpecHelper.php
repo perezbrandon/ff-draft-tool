@@ -17,4 +17,9 @@ trait JsonApiSpecHelper
     {
         return json_decode($response->getContent(), true)['data'];
     }
+
+    public function countData($response)
+    {
+        return count(json_decode($response->getContent(), true)['data']);
+    }
 }

@@ -34,15 +34,9 @@ class ByeWeeksTest extends TestCase
             ]
         ];
 
-        $response->assertStatus(200)
-            ->assertJsonStructure($expectedResult);
-        $data = $this->getData($response);
-        $this->assertEquals(count($data), 2);
+        $response->assertStatus(200)->assertJsonStructure($expectedResult);
+        $this->assertEquals($this->countData($response), 2);
     }
-
-
-
-
 
     public function testMultiFilterByeWeeksSuccessful()
     {
@@ -54,12 +48,12 @@ class ByeWeeksTest extends TestCase
         $response = $this->getApi('/api/bye-weeks?filter[bye_week]=6&filter[team_code]=ARI');
 
         $response->assertStatus(200)
-                 ->assertJsonFragment([
+            ->assertJsonFragment([
                 'byeWeek' => 6,
                 'teamCode' => 'ARI'
-                ]);
-        $data = $this->getData($response);
-        $this->assertEquals(count($data), 3);
+            ]);
+
+        $this->assertEquals($this->countData($response), 3);
     }
 
     public function testSortAcendingByeWeeksSuccessful()

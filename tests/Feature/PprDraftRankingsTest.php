@@ -41,10 +41,8 @@ class PprDraftRankingsTest extends TestCase
             ]
         ];
 
-        $response->assertStatus(200)
-            ->assertJsonStructure($expectedResult);
-        $data = $this->getData($response);
-        $this->assertEquals(count($data), 2);
+        $response->assertStatus(200)->assertJsonStructure($expectedResult);
+        $this->assertEquals($this->countData($response), 2);
     }
 
     public function testMultiFilterDraftRankingSuccessfull()
@@ -58,12 +56,12 @@ class PprDraftRankingsTest extends TestCase
 
 
         $response->assertStatus(200)
-                 ->assertJsonFragment([
-                     "byeWeek" => 6,
-                     "position" => "WR"
-                 ]);
-        $data = $this->getData($response);
-        $this->assertEquals(count($data), 3);
+            ->assertJsonFragment([
+                "byeWeek" => 6,
+                "position" => "WR"
+            ]);
+
+        $this->assertEquals($this->countData($response), 3);
     }
 
 

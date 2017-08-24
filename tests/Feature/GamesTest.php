@@ -36,10 +36,8 @@ class GamesTest extends TestCase
             ]
         ];
 
-        $response->assertStatus(200)
-            ->assertJsonStructure($expectedResult);
-        $data = $this->getData($response);
-        $this->assertEquals(count($data), 2);
+        $response->assertStatus(200)->assertJsonStructure($expectedResult);
+        $this->assertEquals($this->countData($response), 2);
     }
 
 
@@ -51,15 +49,13 @@ class GamesTest extends TestCase
         ]);
         $response = $this->getApi('/api/games?filter[game_week]=3&filter[home_team]=ARI');
 
-
-
         $response->assertStatus(200)
-                 ->assertJsonFragment([
-                     'gameWeek' => 3,
-                     'homeTeam' => 'ARI'
-                 ]);
-        $data = $this->getData($response);
-        $this->assertEquals(count($data), 3);
+            ->assertJsonFragment([
+                'gameWeek' => 3,
+                'homeTeam' => 'ARI'
+            ]);
+
+        $this->assertEquals($this->countData($response), 3);
     }
 
     public function testSortAcendingGamesSuccessful()

@@ -42,10 +42,8 @@ class PlayersTest extends TestCase
             ]
         ];
 
-        $response->assertStatus(200)
-            ->assertJsonStructure($expectedResult);
-        $data = $this->getData($response);
-        $this->assertEquals(count($data), 2);
+        $response->assertStatus(200)->assertJsonStructure($expectedResult);
+        $this->assertEquals($this->countData($response), 2);
     }
 
     public function testListDefaultFilterActiveOnly()
@@ -59,8 +57,7 @@ class PlayersTest extends TestCase
 
         $response = $this->get('/api/players');
 
-        $data = $this->getData($response);
-        $this->assertEquals(count($data), 3);
+        $this->assertEquals($this->countData($response), 3);
     }
 
     public function testNoTimeStampFields()
@@ -82,12 +79,12 @@ class PlayersTest extends TestCase
         $response = $this->getApi('/api/players?filter[team]=ARI&filter[position]=RB');
 
         $response->assertStatus(200)
-                 ->assertJsonFragment([
-                     'team' => 'ARI',
-                     'position' => 'RB'
-                 ]);
-        $data = $this->getData($response);
-        $this->assertEquals(count($data), 3);
+            ->assertJsonFragment([
+                'team' => 'ARI',
+                'position' => 'RB'
+            ]);
+
+        $this->assertEquals($this->countData($response), 3);
     }
 
 

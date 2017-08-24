@@ -33,10 +33,8 @@ class TeamsTest extends TestCase
             ]
         ];
 
-        $response->assertStatus(200)
-            ->assertJsonStructure($expectedResult);
-        $data = $this->getData($response);
-        $this->assertEquals(count($data), 2);
+        $response->assertStatus(200)->assertJsonStructure($expectedResult);
+        $this->assertEquals($this->countData($response), 2);
     }
 
 
@@ -49,12 +47,12 @@ class TeamsTest extends TestCase
         $response = $this->getApi('/api/teams?filter[code]=ARI&filter[full_name]=Arizona%20Cardinals');
 
         $response->assertStatus(200)
-                 ->assertJsonFragment([
-                     'code' => 'ARI',
-                     'fullName' => 'Arizona Cardinals'
-                 ]);
-        $data = $this->getData($response);
-        $this->assertEquals(count($data), 3);
+            ->assertJsonFragment([
+                'code' => 'ARI',
+                'fullName' => 'Arizona Cardinals'
+            ]);
+
+        $this->assertEquals($this->countData($response), 3);
     }
 
 

@@ -42,10 +42,8 @@ class DraftProjectionsTest extends TestCase
             ]
         ];
 
-        $response->assertStatus(200)
-            ->assertJsonStructure($expectedResult);
-        $data = $this->getData($response);
-        $this->assertEquals(count($data), 2);
+        $response->assertStatus(200)->assertJsonStructure($expectedResult);
+        $this->assertEquals($this->countData($response), 2);
     }
 
 
@@ -57,11 +55,11 @@ class DraftProjectionsTest extends TestCase
         $response = $this->getApi('/api/draft-projections?filter[team]=ARI');
 
         $response->assertStatus(200)
-                 ->assertJsonFragment([
-                     'team' => 'ARI',
-                 ]);
-        $data = $this->getData($response);
-        $this->assertEquals(count($data), 3);
+            ->assertJsonFragment([
+                'team' => 'ARI',
+            ]);
+
+        $this->assertEquals($this->countData($response), 3);
     }
 
     public function testSortAcendingDraftProjectionsSuccessful()
