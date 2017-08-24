@@ -89,4 +89,23 @@ class PlayersTest extends TestCase
         $data = $this->getData($response);
         $this->assertEquals(count($data), 3);
     }
+
+
+    public function testSortAcendingPlayersSuccessful()
+    {
+        factory(Player::class, 1)->create(['position' => 'QB']);
+        factory(Player::class, 1)->create(['position' => 'WR']);
+        factory(Player::class, 1)->create(['position' => 'RB']);
+        factory(Player::class, 1)->create(['position' => 'TE']);
+
+        $response = $this->getApi('/api/players?sort=position');
+
+        $data = $this->getData($response);
+        $data = array_map(function ($value) {
+            return $value['attributes']['position'];
+        }, $data);
+
+        $response->assertStatus(200);
+        $this->assertEquals($data, ['QB', 'RB', 'TE' ,'WR']);
+    }
 }

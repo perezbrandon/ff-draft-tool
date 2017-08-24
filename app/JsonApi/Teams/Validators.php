@@ -39,5 +39,8 @@ class Validators extends AbstractValidatorProvider
     {
         //
     }
-
+    protected $allowedSortParameters = [
+        'code',
+        'fullName'
+    ];
 }

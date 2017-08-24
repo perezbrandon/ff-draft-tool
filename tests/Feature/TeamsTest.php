@@ -56,4 +56,23 @@ class TeamsTest extends TestCase
         $data = $this->getData($response);
         $this->assertEquals(count($data), 3);
     }
+
+
+    public function testSortAcendingGamesSuccessful()
+    {
+        factory(Team::class, 1)->create(['full_name' => 'LOS ANGELES']);
+        factory(Team::class, 1)->create(['full_name' => 'ARIZONA']);
+        factory(Team::class, 1)->create(['full_name' => 'CHICAGO']);
+        factory(Team::class, 1)->create(['full_name' => 'ATLANTA']);
+
+        $response = $this->getApi('/api/teams?sort=fullName');
+
+        $data = $this->getData($response);
+        $data = array_map(function ($value) {
+            return $value['attributes']['fullName'];
+        }, $data);
+
+        $response->assertStatus(200);
+        $this->assertEquals($data, [ 'ARIZONA', 'ATLANTA', 'CHICAGO', 'LOS ANGELES']);
+    }
 }

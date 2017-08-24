@@ -21,6 +21,16 @@ class Adapter extends EloquentAdapter
         parent::__construct(new Game(), $paging);
     }
 
+
+    protected $sortColumns = [
+        'gameId',
+        'gameWeek',
+        'gameDate',
+        'awayTeam',
+        'homeTeam',
+    ];
+
+
     /**
      * @param Builder $query
      * @param Collection $filters

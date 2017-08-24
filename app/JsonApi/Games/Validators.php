@@ -40,4 +40,11 @@ class Validators extends AbstractValidatorProvider
         //
     }
 
+    protected $allowedSortParameters = [
+        'gameId',
+        'gameWeek',
+        'gameDate',
+        'awayTeam',
+        'homeTeam',
+    ];
 }

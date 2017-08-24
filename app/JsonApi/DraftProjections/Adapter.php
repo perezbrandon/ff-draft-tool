@@ -21,6 +21,20 @@ class Adapter extends EloquentAdapter
         parent::__construct(new DraftProjection(), $paging);
     }
 
+    protected $sortColumns = [
+            'playerId',
+            'completions',
+            'attempts',
+            'passingYards',
+            'passingTd',
+            'passingInt',
+            'rushYards',
+            'rushTd',
+            'fantasyPoints',
+            'displayName',
+            'team',
+        ];
+
     /**
      * @param Builder $query
      * @param Collection $filters

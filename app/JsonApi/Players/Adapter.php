@@ -21,6 +21,21 @@ class Adapter extends EloquentAdapter
         parent::__construct(new Player(), $paging);
     }
 
+
+    protected $sortColumns = [
+        'playerId',
+        'active',
+        'jersey',
+        'fname',
+        'lname',
+        'displayName',
+        'team',
+        'position',
+        'height',
+        'weight',
+        'dob',
+    ];
+
     /**
      * @param Builder $query
      * @param Collection $filters

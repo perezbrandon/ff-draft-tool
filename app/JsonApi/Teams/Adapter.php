@@ -21,6 +21,12 @@ class Adapter extends EloquentAdapter
         parent::__construct(new Team(), $paging);
     }
 
+
+    protected $sortColumns = [
+        'code',
+        'fullName'
+    ];
+
     /**
      * @param Builder $query
      * @param Collection $filters

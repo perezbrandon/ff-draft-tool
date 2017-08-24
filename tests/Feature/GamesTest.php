@@ -61,4 +61,22 @@ class GamesTest extends TestCase
         $data = $this->getData($response);
         $this->assertEquals(count($data), 3);
     }
+
+    public function testSortAcendingGamesSuccessful()
+    {
+        factory(Game::class, 1)->create(['home_team' => 'BAL']);
+        factory(Game::class, 1)->create(['home_team' => 'ZOO']);
+        factory(Game::class, 1)->create(['home_team' => 'ARI']);
+        factory(Game::class, 1)->create(['home_team' => 'COL']);
+
+        $response = $this->getApi('/api/games?sort=homeTeam');
+
+        $data = $this->getData($response);
+        $data = array_map(function ($value) {
+            return $value['attributes']['homeTeam'];
+        }, $data);
+
+        $response->assertStatus(200);
+        $this->assertEquals($data, ['ARI', 'BAL', 'COL' ,'ZOO']);
+    }
 }

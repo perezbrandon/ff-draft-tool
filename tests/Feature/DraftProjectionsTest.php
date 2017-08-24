@@ -63,4 +63,21 @@ class DraftProjectionsTest extends TestCase
         $data = $this->getData($response);
         $this->assertEquals(count($data), 3);
     }
+
+    public function testSortAcendingDraftProjectionsSuccessful()
+    {
+        factory(DraftProjection::class, 2)->create(['completions' => 2]);
+        factory(DraftProjection::class, 1)->create(['completions' => 1]);
+        factory(DraftProjection::class, 1)->create(['completions' => 4]);
+
+        $response = $this->getApi('/api/draft-projections?sort=completions');
+        $response->assertStatus(200);
+        $data = $this->getData($response);
+
+        $data = array_map(function ($value) {
+            return $value['attributes']['completions'];
+        }, $data);
+
+        $this->assertEquals($data, [1, 2, 2 ,4]);
+    }
 }

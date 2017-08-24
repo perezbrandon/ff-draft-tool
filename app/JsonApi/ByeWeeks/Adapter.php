@@ -21,6 +21,12 @@ class Adapter extends EloquentAdapter
         parent::__construct(new ByeWeek(), $paging);
     }
 
+    protected $sortColumns = [
+        'byeWeek',
+        'teamCode',
+        'teamName',
+    ];
+
     /**
      * @param Builder $query
      * @param Collection $filters

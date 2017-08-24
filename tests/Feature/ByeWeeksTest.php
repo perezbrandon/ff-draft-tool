@@ -61,4 +61,21 @@ class ByeWeeksTest extends TestCase
         $data = $this->getData($response);
         $this->assertEquals(count($data), 3);
     }
+
+    public function testSortAcendingByeWeeksSuccessful()
+    {
+        factory(ByeWeek::class, 1)->create(['bye_week' => 2]);
+        factory(ByeWeek::class, 1)->create(['bye_week' => 3]);
+        factory(ByeWeek::class, 1)->create(['bye_week' => 1]);
+
+
+        $response = $this->getApi('/api/bye-weeks?sort=byeWeek');
+        $data = $this->getData($response);
+
+        $data = array_map(function ($val) {
+            return $val['attributes']['byeWeek'];
+        }, $data);
+
+        $this->assertEquals($data, [1, 2 ,3]);
+    }
 }

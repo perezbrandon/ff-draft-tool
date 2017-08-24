@@ -40,4 +40,10 @@ class Validators extends AbstractValidatorProvider
         //
     }
 
+
+    protected $allowedSortParameters = [
+        'byeWeek',
+        'teamCode',
+        'teamName',
+    ];
 }

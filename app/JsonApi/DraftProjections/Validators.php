@@ -40,4 +40,17 @@ class Validators extends AbstractValidatorProvider
         //
     }
 
+    protected $allowedSortParameters = [
+        'playerId',
+        'completions',
+        'attempts',
+        'passingYards',
+        'passingTd',
+        'passingInt',
+        'rushYards',
+        'rushTd',
+        'fantasyPoints',
+        'displayName',
+        'team',
+    ];
 }
